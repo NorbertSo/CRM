@@ -76,7 +76,7 @@ form.addEventListener("submit", async (e) => {
     console.log('Wysyłane dane:', data); // DEBUG
     
     try {
-        const res = await fetch("https://retixly.com/proxy.php", {
+        const res = await fetch("https://norbertsobala.app.n8n.cloud/webhook/lead-crm-test", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

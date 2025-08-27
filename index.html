@@ -14,59 +14,45 @@
         <div class="form-wrapper">
             <header class="form-header">
                 <h1>Skontaktuj się</h1>
-                <p>Odpowiemy w ciągu 24 godzin</p>
             </header>
             
             <form id="contact-form" class="contact-form">
-                <div class="form-row">
-                    <div class="input-group">
-                        <input type="text" id="imie" name="imie" required autocomplete="given-name">
-                        <label for="imie">Imię</label>
-                        <span class="focus-border"></span>
-                    </div>
-                    
-                    <div class="input-group">
-                        <input type="email" id="email" name="email" required autocomplete="email">
-                        <label for="email">Email</label>
-                        <span class="focus-border"></span>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="input-group">
-                        <input type="tel" id="telefon" name="telefon" autocomplete="tel">
-                        <label for="telefon">Telefon (opcjonalnie)</label>
-                        <span class="focus-border"></span>
-                    </div>
-                    
-                    <div class="input-group">
-                        <input type="text" id="nip" name="nip" pattern="[0-9]{10}" maxlength="10">
-                        <label for="nip">NIP (opcjonalnie)</label>
-                        <span class="focus-border"></span>
-                    </div>
-                </div>
-                
-                <div class="input-group select-group">
-                    <select id="zrodlo" name="zrodlo" required>
-                        <option value="" disabled selected></option>
-                        <option value="Google">Wyszukiwarka Google</option>
-                        <option value="Facebook">Facebook / Instagram</option>
-                        <option value="Polecenie">Polecenie znajomych</option>
-                        <option value="Inne">Inne źródło</option>
-                    </select>
-                    <label for="zrodlo">Skąd nas znasz?</label>
+                <div class="input-group">
+                    <input type="text" id="imie" name="imie" required autocomplete="given-name">
+                    <label for="imie">Imię</label>
                     <span class="focus-border"></span>
-                    <div class="select-arrow">
-                        <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
-                            <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <input type="email" id="email" name="email" required autocomplete="email">
+                    <label for="email">Email</label>
+                    <span class="focus-border"></span>
+                </div>
+                
+                <div class="input-group">
+                    <input type="tel" id="telefon" name="telefon" autocomplete="tel">
+                    <label for="telefon">Telefon (opcjonalnie)</label>
+                    <span class="focus-border"></span>
+                </div>
+                
+                <div class="input-group">
+                    <input type="text" id="nip" name="nip" pattern="[0-9]{10}" maxlength="10" required>
+                    <label for="nip">NIP</label>
+                    <span class="focus-border"></span>
                 </div>
                 
                 <div class="input-group textarea-group">
                     <textarea id="wiadomosc" name="wiadomosc" rows="4"></textarea>
                     <label for="wiadomosc">Wiadomość (opcjonalnie)</label>
                     <span class="focus-border"></span>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="consent" name="consent" required>
+                    <label for="consent" class="checkbox-label">
+                        <span class="checkbox-custom"></span>
+                        Wyrażam zgodę na przetwarzanie moich danych osobowych zgodnie z ustawą o ochronie danych osobowych w celu realizacji zgłoszenia
+                    </label>
                 </div>
                 
                 <button type="submit" id="submit-btn" class="submit-btn">

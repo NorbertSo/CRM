@@ -67,7 +67,6 @@ form.addEventListener("submit", async (e) => {
     const data = {
         imie: form.imie.value.trim(),
         email: form.email.value.trim().toLowerCase(),
-        telefon: form.telefon.value.trim(),
         nip: form.nip.value.trim(),
         wiadomosc: form.wiadomosc.value.trim(),
         consent: form.consent.checked
@@ -85,11 +84,6 @@ form.addEventListener("submit", async (e) => {
         if (res.ok) {
             showStatus('Dziękujemy! Skontaktujemy się wkrótce.', 'success');
             form.reset();
-            
-            // Reset floating labels
-            form.querySelectorAll('input, textarea').forEach(field => {
-                field.blur();
-            });
         } else {
             throw new Error(`Błąd serwera: ${res.status}`);
         }
@@ -101,7 +95,6 @@ form.addEventListener("submit", async (e) => {
     }
 });
 
-// Clear error status when user starts typing
 form.querySelectorAll('input, textarea').forEach(field => {
     field.addEventListener('input', () => {
         if (statusEl.classList.contains('error')) {
@@ -110,7 +103,6 @@ form.querySelectorAll('input, textarea').forEach(field => {
     });
 });
 
-// NIP formatting - add spaces for better readability while typing
 form.nip.addEventListener('input', (e) => {
     let value = e.target.value.replace(/\D/g, '');
     if (value.length > 10) {

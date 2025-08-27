@@ -2,7 +2,6 @@ const form = document.getElementById("contact-form");
 const statusEl = document.getElementById("form-status");
 const submitBtn = document.getElementById("submit-btn");
 
-// Smooth animations for form status
 function showStatus(message, type) {
     statusEl.textContent = message;
     statusEl.className = `form-status ${type} show`;
@@ -10,11 +9,10 @@ function showStatus(message, type) {
     if (type === 'success') {
         setTimeout(() => {
             statusEl.classList.remove('show');
-        }, 5000);
+        }, 6000);
     }
 }
 
-// Enhanced button loading state
 function setLoading(loading) {
     if (loading) {
         submitBtn.disabled = true;
@@ -25,40 +23,42 @@ function setLoading(loading) {
     }
 }
 
-// NIP validation
 function validateNIP(nip) {
-    if (!nip) return true; // NIP is optional
     const cleanNIP = nip.replace(/\s/g, '');
     return /^\d{10}$/.test(cleanNIP);
+}
+
+function validateForm() {
+    const requiredFields = [
+        { field: form.imie, message: 'Proszę podać imię' },
+        { field: form.email, message: 'Proszę podać email' },
+        { field: form.nip, message: 'Proszę podać NIP' },
+        { field: form.consent, message: 'Proszę wyrazić zgodę na przetwarzanie danych' }
+    ];
+    
+    for (const { field, message } of requiredFields) {
+        if (!field.value || (field.type === 'checkbox' && !field.checked)) {
+            showStatus(message, 'error');
+            field.focus();
+            return false;
+        }
+    }
+    
+    if (!validateNIP(form.nip.value)) {
+        showStatus('NIP musi składać się z dokładnie 10 cyfr', 'error');
+        form.nip.focus();
+        return false;
+    }
+    
+    return true;
 }
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
     
-    // Clear previous status
     statusEl.classList.remove('show');
     
-    // Validate required fields
-    const requiredFields = ['imie', 'email', 'zrodlo'];
-    let isValid = true;
-    
-    requiredFields.forEach(fieldName => {
-        const field = form[fieldName];
-        if (!field.value.trim()) {
-            field.focus();
-            isValid = false;
-        }
-    });
-    
-    // Validate NIP if provided
-    if (form.nip.value && !validateNIP(form.nip.value)) {
-        showStatus('NIP musi składać się z 10 cyfr', 'error');
-        form.nip.focus();
-        return;
-    }
-    
-    if (!isValid) {
-        showStatus('Proszę wypełnić wszystkie wymagane pola', 'error');
+    if (!validateForm()) {
         return;
     }
     
@@ -66,11 +66,11 @@ form.addEventListener("submit", async (e) => {
     
     const data = {
         imie: form.imie.value.trim(),
-        email: form.email.value.trim(),
+        email: form.email.value.trim().toLowerCase(),
         telefon: form.telefon.value.trim(),
         nip: form.nip.value.trim(),
-        zrodlo: form.zrodlo.value,
-        wiadomosc: form.wiadomosc.value.trim()
+        wiadomosc: form.wiadomosc.value.trim(),
+        consent: form.consent.checked
     };
     
     try {
@@ -87,25 +87,34 @@ form.addEventListener("submit", async (e) => {
             form.reset();
             
             // Reset floating labels
-            form.querySelectorAll('input, textarea, select').forEach(field => {
+            form.querySelectorAll('input, textarea').forEach(field => {
                 field.blur();
             });
         } else {
-            throw new Error(`Server error: ${res.status}`);
+            throw new Error(`Błąd serwera: ${res.status}`);
         }
     } catch (err) {
-        showStatus('Wystąpił problem. Spróbuj ponownie.', 'error');
+        showStatus('Wystąpił problem z połączeniem. Spróbuj ponownie.', 'error');
         console.error('Form submission error:', err);
     } finally {
         setLoading(false);
     }
 });
 
-// Enhanced form interactions
+// Clear error status when user starts typing
 form.querySelectorAll('input, textarea').forEach(field => {
     field.addEventListener('input', () => {
         if (statusEl.classList.contains('error')) {
             statusEl.classList.remove('show');
         }
     });
+});
+
+// NIP formatting - add spaces for better readability while typing
+form.nip.addEventListener('input', (e) => {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length > 10) {
+        value = value.slice(0, 10);
+    }
+    e.target.value = value;
 });

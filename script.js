@@ -64,6 +64,7 @@ form.addEventListener("submit", async (e) => {
     
     setLoading(true);
     
+    // POPRAWIONE - tylko pola które istnieją w HTML
     const data = {
         imie: form.imie.value.trim(),
         email: form.email.value.trim().toLowerCase(),
@@ -71,6 +72,8 @@ form.addEventListener("submit", async (e) => {
         wiadomosc: form.wiadomosc.value.trim(),
         consent: form.consent.checked
     };
+    
+    console.log('Wysyłane dane:', data); // DEBUG
     
     try {
         const res = await fetch("https://norbertsobala.app.n8n.cloud/webhook/lead-crm-test", {
@@ -81,20 +84,27 @@ form.addEventListener("submit", async (e) => {
             body: JSON.stringify(data)
         });
         
+        console.log('Response status:', res.status); // DEBUG
+        
         if (res.ok) {
+            const responseData = await res.json();
+            console.log('Response data:', responseData); // DEBUG
             showStatus('Dziękujemy! Skontaktujemy się wkrótce.', 'success');
             form.reset();
         } else {
+            const errorText = await res.text();
+            console.error('Server error:', res.status, errorText);
             throw new Error(`Błąd serwera: ${res.status}`);
         }
     } catch (err) {
+        console.error('Fetch error:', err);
         showStatus('Wystąpił problem z połączeniem. Spróbuj ponownie.', 'error');
-        console.error('Form submission error:', err);
     } finally {
         setLoading(false);
     }
 });
 
+// Clear error when typing
 form.querySelectorAll('input, textarea').forEach(field => {
     field.addEventListener('input', () => {
         if (statusEl.classList.contains('error')) {
@@ -103,6 +113,7 @@ form.querySelectorAll('input, textarea').forEach(field => {
     });
 });
 
+// NIP formatting
 form.nip.addEventListener('input', (e) => {
     let value = e.target.value.replace(/\D/g, '');
     if (value.length > 10) {

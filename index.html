@@ -1,50 +1,86 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formularz kontaktowy</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="container">
-    <h1>Skontaktuj się z nami</h1>
-    <form id="contact-form">
-      <div class="form-group">
-        <label for="imie">Imię *</label>
-        <input type="text" id="imie" name="imie" required>
-      </div>
-
-      <div class="form-group">
-        <label for="email">Email *</label>
-        <input type="email" id="email" name="email" required>
-      </div>
-
-      <div class="form-group">
-        <label for="telefon">Telefon</label>
-        <input type="tel" id="telefon" name="telefon">
-      </div>
-
-      <div class="form-group">
-        <label for="zrodlo">Skąd nas znasz?</label>
-        <select id="zrodlo" name="zrodlo" required>
-          <option value="" disabled selected>Wybierz...</option>
-          <option value="Google">Google</option>
-          <option value="Facebook">Facebook</option>
-          <option value="Polecenie">Polecenie</option>
-          <option value="Inne">Inne</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="wiadomosc">Wiadomość</label>
-        <textarea id="wiadomosc" name="wiadomosc"></textarea>
-      </div>
-
-      <button type="submit" id="submit-btn">Wyślij</button>
-      <p id="form-status" role="alert"></p>
-    </form>
-  </main>
-  <script src="script.js"></script>
+    <main class="container">
+        <div class="form-wrapper">
+            <header class="form-header">
+                <h1>Skontaktuj się</h1>
+                <p>Odpowiemy w ciągu 24 godzin</p>
+            </header>
+            
+            <form id="contact-form" class="contact-form">
+                <div class="form-row">
+                    <div class="input-group">
+                        <input type="text" id="imie" name="imie" required autocomplete="given-name">
+                        <label for="imie">Imię</label>
+                        <span class="focus-border"></span>
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="email" id="email" name="email" required autocomplete="email">
+                        <label for="email">Email</label>
+                        <span class="focus-border"></span>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="input-group">
+                        <input type="tel" id="telefon" name="telefon" autocomplete="tel">
+                        <label for="telefon">Telefon (opcjonalnie)</label>
+                        <span class="focus-border"></span>
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="text" id="nip" name="nip" pattern="[0-9]{10}" maxlength="10">
+                        <label for="nip">NIP (opcjonalnie)</label>
+                        <span class="focus-border"></span>
+                    </div>
+                </div>
+                
+                <div class="input-group select-group">
+                    <select id="zrodlo" name="zrodlo" required>
+                        <option value="" disabled selected></option>
+                        <option value="Google">Wyszukiwarka Google</option>
+                        <option value="Facebook">Facebook / Instagram</option>
+                        <option value="Polecenie">Polecenie znajomych</option>
+                        <option value="Inne">Inne źródło</option>
+                    </select>
+                    <label for="zrodlo">Skąd nas znasz?</label>
+                    <span class="focus-border"></span>
+                    <div class="select-arrow">
+                        <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
+                            <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="input-group textarea-group">
+                    <textarea id="wiadomosc" name="wiadomosc" rows="4"></textarea>
+                    <label for="wiadomosc">Wiadomość (opcjonalnie)</label>
+                    <span class="focus-border"></span>
+                </div>
+                
+                <button type="submit" id="submit-btn" class="submit-btn">
+                    <span class="btn-text">Wyślij wiadomość</span>
+                    <div class="btn-loader">
+                        <div class="spinner"></div>
+                    </div>
+                </button>
+                
+                <div id="form-status" class="form-status" role="alert"></div>
+            </form>
+        </div>
+    </main>
+    
+    <script src="script.js"></script>
 </body>
 </html>

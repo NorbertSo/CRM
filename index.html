@@ -18,33 +18,23 @@
             
             <form id="contact-form" class="contact-form">
                 <div class="input-group">
-                    <input type="text" id="imie" name="imie" required autocomplete="given-name">
-                    <label for="imie">Imię</label>
-                    <span class="focus-border"></span>
+                    <label for="imie" class="field-label">Imię</label>
+                    <input type="text" id="imie" name="imie" placeholder="Jan" required autocomplete="given-name">
                 </div>
                 
                 <div class="input-group">
-                    <input type="email" id="email" name="email" required autocomplete="email">
-                    <label for="email">Email</label>
-                    <span class="focus-border"></span>
+                    <label for="email" class="field-label">Email</label>
+                    <input type="email" id="email" name="email" placeholder="jan@firma.pl" required autocomplete="email">
                 </div>
                 
                 <div class="input-group">
-                    <input type="tel" id="telefon" name="telefon" autocomplete="tel">
-                    <label for="telefon">Telefon (opcjonalnie)</label>
-                    <span class="focus-border"></span>
+                    <label for="nip" class="field-label">NIP</label>
+                    <input type="text" id="nip" name="nip" placeholder="1234567890" pattern="[0-9]{10}" maxlength="10" required>
                 </div>
                 
                 <div class="input-group">
-                    <input type="text" id="nip" name="nip" pattern="[0-9]{10}" maxlength="10" required>
-                    <label for="nip">NIP</label>
-                    <span class="focus-border"></span>
-                </div>
-                
-                <div class="input-group textarea-group">
-                    <textarea id="wiadomosc" name="wiadomosc" rows="4"></textarea>
-                    <label for="wiadomosc">Wiadomość (opcjonalnie)</label>
-                    <span class="focus-border"></span>
+                    <label for="wiadomosc" class="field-label">Wiadomość</label>
+                    <textarea id="wiadomosc" name="wiadomosc" placeholder="Opisz swoje potrzeby..." rows="4"></textarea>
                 </div>
                 
                 <div class="checkbox-group">
